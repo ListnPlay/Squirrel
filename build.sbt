@@ -1,5 +1,3 @@
-import sbt.dsl._
-
 scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation")
 
 val json4sVersion = "3.3.0"
@@ -16,7 +14,10 @@ libraryDependencies ++= Seq(
   "org.json4s"                  %% "json4s-jackson"      % json4sVersion exclude("com.fasterxml.jackson.core", "jackson-core") exclude("com.fasterxml.jackson.core", "jackson-annotations"),
   "org.json4s"                  %% "json4s-ext"          % json4sVersion,
   "com.typesafe"                 % "config"              % "1.3.0",
+  "com.github.slugify"           %  "slugify"            % "2.1.4",
 //------------------------------- TEST -----------------------------------
+  "org.scalacheck"	            %% "scalacheck"	         % "1.12.2"    % "test",
+  "com.osinka.slugify"          %% "slugify"             % "1.2.1"     % "test",
   "org.scalatest"               %% "scalatest"           % "2.2.5"     % "test"
 
 )
@@ -24,5 +25,5 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file(".")).settings(
     name := "squirrel",
     organization := "com.featurefm",
-    version := "0.1",
+    version := "0.1.1",
     scalaVersion := "2.11.7")

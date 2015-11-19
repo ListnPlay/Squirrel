@@ -1,8 +1,8 @@
 package com.featurefm.util.countries
 
-import org.json4s.JsonAST._
+import org.json4s.JsonAST.{JString, JField, JObject, JArray}
 import org.json4s.StringInput
-import org.json4s.jackson.JsonMethods._
+import org.json4s.jackson.JsonMethods.parse
 
 import scala.io.Source
 import scalaj.http._
@@ -36,8 +36,6 @@ object CountryService {
   def originalJson = Http("http://restcountries.eu/rest/v1/all").asString.body
 }
 
-import com.featurefm.util.countries.CountryService._
+class LocalCountryService extends CountryService(CountryService.localJson)
 
-class LocalCountryService extends CountryService(localJson)
-
-class OriginalCountryService extends CountryService(originalJson)
+class OriginalCountryService extends CountryService(CountryService.originalJson)

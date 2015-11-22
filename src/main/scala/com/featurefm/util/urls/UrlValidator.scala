@@ -14,7 +14,7 @@ object UrlValidator {
   trait UrlPattern {
     def pattern: Regex
     def unapply(url: String): Option[String] = {
-      pattern.findFirstIn(url)
+      pattern.unapplySeq(url).flatMap(_.headOption)
     }
   }
 

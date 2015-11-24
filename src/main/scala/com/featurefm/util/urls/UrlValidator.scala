@@ -1,5 +1,6 @@
 package com.featurefm.util.urls
 
+import com.featurefm.util.urls.UrlValidator.UrlPattern
 import com.typesafe.config.ConfigFactory
 
 import scala.util.matching.Regex
@@ -13,9 +14,7 @@ object UrlValidator {
 
   trait UrlPattern {
     def pattern: Regex
-    def unapply(url: String): Option[String] = {
-      pattern.unapplySeq(url).flatMap(_.headOption)
-    }
+    def unapply(url: String): Option[String] = pattern.unapplySeq(url).flatMap(_.headOption)
   }
 
   object YoutubeVideo extends UrlPattern {
@@ -37,26 +36,39 @@ object UrlValidator {
 
   object TwitterUrl extends UrlPattern {
     override val pattern = config.getString("pattern.twitter.url").r
+    def apply(username: String): String = s"https://twitter.com/$username"
   }
 
   object AnyUrl extends UrlPattern {
     override val pattern = config.getString("pattern.url").r
+    override def unapply(url: String): Option[String] = pattern.findFirstIn(url)
   }
 
-  def validFacebookUrl_?(url: String): Boolean = url match { case Facebook(_) => true; case _ => false }
+  val allowEmptyString = config.getBoolean("pattern.allowEmptyString")
 
-  def validYouTubeVideoUrl_?(url: String): Boolean = url match { case YoutubeVideo(_) => true; case _ => false }
+  def validFacebookUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
+    case Facebook(_) => true
+    case _ => false
+  })
 
-  def validYouTubeUrl_?(url: String): Boolean = url match {
+  def validYouTubeVideoUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
+    case YoutubeVideo(_) => true
+    case _ => false
+  })
+
+  def validYouTubeUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
     case YoutubeVideo(_) | YoutubeChannel(_) => true
     case _ => false
-  }
+  })
 
-  def validTwitterHandle_?(str: String): Boolean = str match {
+  def validTwitterHandle_?(str: String): Boolean = (str.isEmpty && allowEmptyString) || (str match {
     case TwitterHandle(_) | TwitterUrl(_) => true
     case _ => false
-  }
+  })
 
-  def validUrl_?(url: String): Boolean = url match { case AnyUrl(_) => true; case _ => false }
+  def validUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
+    case AnyUrl(_) => true
+    case _ => false
+  })
 
 }

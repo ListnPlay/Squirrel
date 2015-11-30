@@ -1,3 +1,5 @@
+import _root_.bintray.BintrayPlugin.autoImport._
+
 scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation")
 
 val json4sVersion = "3.3.0"
@@ -24,5 +26,21 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file(".")).settings(
     name := "squirrel",
     organization := "com.featurefm",
-    version := "0.1.5",
-    scalaVersion := "2.11.7")
+    version := "0.1.6",
+    scalaVersion := "2.11.7",
+    bintrayOrganization := Some("listnplay"),
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
+    publishMavenStyle := true,
+    pomAllRepositories := true,
+    pomExtra := <scm>
+                  <url>https://github.com/ListnPlay/Squirrel</url>
+                  <connection>git@github.com:ListnPlay/Squirrel.git</connection>
+                </scm>
+                <developers>
+                  <developer>
+                    <id>ymeymann</id>
+                    <name>Yardena Meymann</name>
+                    <url>https://github.com/ymeymann</url>
+                  </developer>
+                </developers>
+)

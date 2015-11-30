@@ -1,6 +1,5 @@
 package com.featurefm.util.urls
 
-import com.featurefm.util.urls.UrlValidator.UrlPattern
 import com.typesafe.config.ConfigFactory
 
 import scala.util.matching.Regex

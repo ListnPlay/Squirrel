@@ -7,9 +7,9 @@ import scala.util.matching.Regex
 /**
  * Created by yardena on 11/19/15.
  */
-object UrlValidator {
+trait UrlValidator {
 
-  val config = ConfigFactory.load()
+  protected val config = ConfigFactory.load()
 
   trait UrlPattern {
     def pattern: Regex
@@ -23,6 +23,7 @@ object UrlValidator {
 
   object YoutubeChannel extends UrlPattern {
     override val pattern = config.getString("pattern.youtube.channel").r
+    def apply(id: String) = s"https://www.youtube.com/channel/$id"
   }
 
   object Facebook extends UrlPattern {
@@ -43,7 +44,7 @@ object UrlValidator {
     override def unapply(url: String): Option[String] = pattern.findFirstIn(url)
   }
 
-  val allowEmptyString = config.getBoolean("pattern.allowEmptyString")
+  def allowEmptyString: Boolean
 
   def validFacebookUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
     case Facebook(_) => true
@@ -52,6 +53,11 @@ object UrlValidator {
 
   def validYouTubeVideoUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
     case YoutubeVideo(_) => true
+    case _ => false
+  })
+
+  def validYouTubeChannelUrl_?(url: String): Boolean = (url.isEmpty && allowEmptyString) || (url match {
+    case YoutubeChannel(_) => true
     case _ => false
   })
 
@@ -70,4 +76,8 @@ object UrlValidator {
     case _ => false
   })
 
+}
+
+object UrlValidator extends UrlValidator {
+  override val allowEmptyString = config.getBoolean("pattern.allowEmptyString")
 }

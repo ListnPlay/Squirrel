@@ -8,3 +8,5 @@ This project consists of 3 utilities:
 To use, include this in your sbt: `"com.featurefm" %% "squirrel" % "0.1.7"`
 
 Supports Scala 2.11 only.
+
+![Suirrel](https://farm2.staticflickr.com/1630/23561520903_252b19846e_n.jpg)

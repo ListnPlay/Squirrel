@@ -1,10 +1,15 @@
 import _root_.bintray.BintrayPlugin.autoImport._
 
+resolvers ++= Seq(
+  "Feature.fm" at "http://dl.bintray.com/listnplay/maven",
+  "dl-john-ky" at "http://dl.john-ky.io/maven/releases"
+)
+
 scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation")
 
 val json4sVersion = "3.3.0"
 
-val jacksonVersion = "2.6.3"
+val jacksonVersion = "2.7.2"
 
 libraryDependencies ++= Seq(
   "com.softwaremill.quicklens"  %% "quicklens"           % "1.4.1",
@@ -16,6 +21,7 @@ libraryDependencies ++= Seq(
   "org.json4s"                  %% "json4s-ext"          % json4sVersion,
   "com.typesafe"                 % "config"              % "1.3.0",
   "com.github.slugify"           %  "slugify"            % "2.1.4",
+  "io.john-ky"                  %% "hashids-scala"       % "1.1.1-7d841a8",
 //------------------------------- TEST -----------------------------------
   "org.scalacheck"	            %% "scalacheck"	         % "1.12.2"    % "test",
   "com.osinka.slugify"          %% "slugify"             % "1.2.1"     % "test",
@@ -26,7 +32,7 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file(".")).settings(
     name := "squirrel",
     organization := "com.featurefm",
-    version := "0.1.8",
+    version := "0.2.0",
     scalaVersion := "2.11.7",
     bintrayOrganization := Some("listnplay"),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),

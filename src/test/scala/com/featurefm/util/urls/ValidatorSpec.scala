@@ -49,6 +49,19 @@ class ValidatorSpec extends FlatSpec with Matchers {
     validUrl_?("http://www.ericclapton.com/") shouldBe true
   }
 
+  it should "not accept email as url" in {
+    validUrl_?("fourthrealmmusic@gmail.com") shouldBe false
+  }
+
+  it should "accept url with numbers as first word" in {
+    validUrl_?("https://5113.hearnow.com/") shouldBe true
+  }
+
+  it should "accept url parameters" in {
+    validUrl_?("http://itunes.apple.com/album/id1083744262?ls=1&app=itunes") shouldBe true
+    validUrl_?("https://www.instagram.com/whagiy/?hl=en")
+  }
+
   it should "accept underscore in twitter handle" in {
     validTwitterHandle_?("@I_Has_Under") shouldBe true
     validTwitterHandle_?("https://twitter.com/I_Has_Under") shouldBe true

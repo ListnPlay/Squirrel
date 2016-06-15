@@ -86,18 +86,25 @@ class ValidatorSpec extends FlatSpec with Matchers {
   it should "extract correct facebook id" in new TableDrivenPropertyChecks {
 
     val data = Table(
-      ("url",                                                                        "id"                 ),
-//     ------------------------------------------------------------------            ----------------------
-      ("https://www.facebook.com/ericclapton",                                       "ericclapton"        ),
-      ("https://www.facebook.com/Featurefm-497931363607317/?fref=ts",                "497931363607317"    ),
-      ("http://www.facebook.com/#!/my_page_id",                                      "my_page_id"         ),
-      ("http://www.facebook.com/pages/Paris-France/Vanity-Url/123456?v=app_555",     "123456"             ),
-      ("http://www.facebook.com/pages/Vanity-Url/45678",                             "45678"              ),
-      ("http://www.facebook.com/#!/page_with_1_number",                              "page_with_1_number" ),
-      ("http://www.facebook.com/bounce_page#!/pages/Vanity-Url/45678",               "45678"              ),
-      ("http://www.facebook.com/bounce_page#!/my_page_id?v=app_166292090072334",     "my_page_id"         ),
-      ("https://www.facebook.com/Featurefm-497931363607317?ref=aymt_homepage_panel", "497931363607317"    ),
-      ("http://www.facebook.com/my.page.is.great",                                   "my.page.is.great"   )
+      ("url",                                                                        "id"                                     ),
+//     ------------------------------------------------------------------            ------------------------------------------
+      ("https://www.facebook.com/ericclapton",                                       "ericclapton"                            ),
+      ("https://www.facebook.com/Featurefm-497931363607317/?fref=ts",                "Featurefm-497931363607317"              ),
+      ("http://www.facebook.com/#!/my_page_id",                                      "my_page_id"                             ),
+      ("http://www.facebook.com/pages/Paris-France/Vanity-Url/123456?v=app_555",     "123456"                                 ),
+      ("http://www.facebook.com/pages/Vanity-Url/45678",                             "45678"                                  ),
+      ("http://www.facebook.com/#!/page_with_1_number",                              "page_with_1_number"                     ),
+      ("http://www.facebook.com/bounce_page#!/pages/Vanity-Url/45678",               "45678"                                  ),
+      ("http://www.facebook.com/bounce_page#!/my_page_id?v=app_166292090072334",     "my_page_id"                             ),
+      ("https://www.facebook.com/Featurefm-497931363607317?ref=aymt_homepage_panel", "Featurefm-497931363607317"              ),
+      ("http://www.facebook.com/my.page.is.great",                                   "my.page.is.great"                       ),
+      ("https://m.facebook.com/ATM-TRILL-1519253188329468/",                         "ATM-TRILL-1519253188329468"             ),
+      ("https://www.facebook.com/Tony-Montanez-Music-1177639645599236/",             "Tony-Montanez-Music-1177639645599236"   ),
+      ("https://www.facebook.com/Malick-Da-1da",                                     "Malick-Da-1da"                          ),
+      ("https://www.facebook.com/JulianCherkinsky-Band-1630144687252083/?fref=ts",   "JulianCherkinsky-Band-1630144687252083" ),
+      ("https://www.facebook.com/Jerk-in-the-can-1542108192679526/",                 "Jerk-in-the-can-1542108192679526"       ),
+      ("https://www.facebook.com/Black-Sea-Storm-203236457751/",                     "Black-Sea-Storm-203236457751"           ),
+      ("https://www.facebook.com/Tony-Montanez-Music-1177639645599236/",             "Tony-Montanez-Music-1177639645599236"   )
     )
 
     forAll(data) { (url: String, id: String) =>

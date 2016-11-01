@@ -96,6 +96,10 @@ class ValidatorSpec extends FlatSpec with Matchers {
     validUrl_?("ssasasdad") shouldBe false
   }
 
+  it should "accept website with 'https://www.youtube.com/shared?ci=FcjfNRXks-k'" in {
+    validUrl_?("https://www.youtube.com/shared?ci=FcjfNRXks-k") shouldBe true
+  }
+
   it should "extract correct facebook id" in new TableDrivenPropertyChecks {
 
     val data = Table(

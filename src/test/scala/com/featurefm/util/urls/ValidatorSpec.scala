@@ -100,6 +100,10 @@ class ValidatorSpec extends FlatSpec with Matchers {
     validUrl_?("https://www.youtube.com/shared?ci=FcjfNRXks-k") shouldBe true
   }
 
+  it should "accept website with 'https://www.spinninrecords.com/profile/dima_zill#contests'" in {
+    validUrl_?("https://www.spinninrecords.com/profile/dima_zill#contests") shouldBe true
+  }
+
   it should "extract correct facebook id" in new TableDrivenPropertyChecks {
 
     val data = Table(

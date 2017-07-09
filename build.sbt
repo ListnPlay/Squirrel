@@ -1,8 +1,7 @@
 import _root_.bintray.BintrayPlugin.autoImport._
 
 resolvers ++= Seq(
-  "Feature.fm" at "http://dl.bintray.com/listnplay/maven",
-  "dl-john-ky" at "http://dl.john-ky.io/maven/releases"
+  "Feature.fm" at "http://dl.bintray.com/listnplay/maven"
 )
 
 scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation")
@@ -32,8 +31,8 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file(".")).settings(
     name := "squirrel",
     organization := "com.featurefm",
-    version := "0.2.4",
-    scalaVersion := "2.11.7",
+    version := "0.2.5",
+    scalaVersion := "2.11.8",
     bintrayOrganization := Some("listnplay"),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     publishMavenStyle := true,

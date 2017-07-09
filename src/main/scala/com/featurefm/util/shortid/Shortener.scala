@@ -6,6 +6,8 @@ import java.util.{Base64, UUID}
 
 import org.hashids._
 
+import scala.util.hashing.MurmurHash3
+
 /**
   * Created by yardena on 3/16/16.
   */
@@ -53,14 +55,43 @@ trait Shortener {
     UUID.nameUUIDFromBytes(bb.array())
   }
 
-  def shortString(uuid: UUID): String = {
-    var hash = uuid.hashCode().toLong
+  def shortStringHash(i: Int): String = {
+    var hash = i.toLong
     if (hash < 0) { if (hash == MIN_VALUE) hash = hash.abs else hash = offset + hash.abs }
     hashIds.encode(hash)
   }
 
+  def shortString(uuid: UUID): String = {
+    shortStringHash(uuid.hashCode())
+  }
+
   def matchesShortString(uuid: UUID, str: String): Boolean = {
     shortString(uuid) == str
+  }
+
+  private def byteArray2Long(arr: Array[Byte]): Long = {
+    require(arr.length < 8, s"error in unique hash generator, array is too long (${arr.length})")
+    val zeroPadded = Array.fill[Byte](8 - arr.length)(0) ++ arr
+    ByteBuffer.wrap(zeroPadded).getLong
+  }
+
+  def shortUniqueUrlString(b: Array[Byte]): String = {
+    hashIds.encode((if (b.length == 12) b.grouped(6) else b.grouped(7)).map(byteArray2Long).toSeq:_*)
+  }
+
+  def shortUrlString(b: Array[Byte]): String = {
+    shortStringHash(MurmurHash3.bytesHash(b))
+  }
+
+  private def long2ByteArray(x: Long): Array[Byte] = {
+    val buffer = ByteBuffer.allocate(java.lang.Long.BYTES)
+    buffer.putLong(x)
+    buffer.array()
+  }
+
+  def restore12BytesFromUrlString(str: String): Array[Byte] = {
+    val List(a,b) = hashIds.decode(str)
+    long2ByteArray(a).takeRight(6) ++ long2ByteArray(b).takeRight(6)
   }
 
 }

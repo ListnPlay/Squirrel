@@ -10,8 +10,8 @@ class FastSlugGenerator(private val replacements: Map[String,String] = FastSlugG
   lazy val slugify = new Slugify() {
     def initialize(): Slugify = {
       setLowerCase(true)
-      import scala.collection.JavaConversions._
-      this.setCustomReplacements(replacements)
+      import scala.collection.JavaConverters._
+      this.setCustomReplacements(replacements.asJava)
       this
     }
   }.initialize()

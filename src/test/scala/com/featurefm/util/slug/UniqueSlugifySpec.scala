@@ -10,10 +10,10 @@ import scala.concurrent.Future
  */
 class UniqueSlugifySpec extends FlatSpec with Matchers with ScalaFutures {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
+  private implicit val context = scala.concurrent.ExecutionContext.global
 
-  val factory = (f: (String) => Boolean) => UniqueSlugGeneratorAsync(new FastSlugGenerator, "artist"){ s: String =>
-    Future successful f(s) }
+  val factory = (f: String => Boolean) => UniqueSlugGeneratorAsync(new FastSlugGenerator, "artist")({ s: String =>
+    Future successful f(s) })
 
   "UniqueSlugGenerator" should "handle Beatles" in {
     whenReady(factory(_ => true)("Beatles")) (_ shouldEqual "beatles" )

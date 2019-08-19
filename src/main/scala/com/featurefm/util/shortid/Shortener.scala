@@ -13,7 +13,7 @@ import scala.util.hashing.MurmurHash3
   */
 trait Shortener {
 
-  lazy val hashIds = Hashids.reference(salt = "FEATURE.FM rulez 7he w0rld")
+  lazy val hashIds = Hashids(salt = "FEATURE.FM rulez 7he w0rld")
   val offset = highestOneBit(MIN_VALUE).toLong.abs
 
   def base64encode(uuid: UUID): String = {

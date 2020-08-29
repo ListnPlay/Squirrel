@@ -11,7 +11,7 @@ val json4sVersion   = "3.5.3"
 val jacksonVersion  = "2.8.5"
 
 libraryDependencies ++= Seq(
-  "com.softwaremill.quicklens"  %% "quicklens"           % "1.4.12",
+  "com.softwaremill.quicklens"  %% "quicklens"           % "1.6.1",
   "com.github.nscala-time"      %% "nscala-time"         % "2.18.0",
   "org.scalaj"                  %% "scalaj-http"         % "2.3.0",
   "com.fasterxml.jackson.core"   % "jackson-core"        % jacksonVersion,
@@ -34,7 +34,7 @@ lazy val supportedScalaVersions = List(scala211, scala212)
 lazy val root = (project in file(".")).settings(
     name := "squirrel",
     organization := "com.featurefm",
-    version := "0.3.1",
+    version := "0.3.2",
     crossScalaVersions := supportedScalaVersions,
     bintrayOrganization := Some("listnplay"),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),

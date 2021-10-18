@@ -1,5 +1,3 @@
-import _root_.bintray.BintrayPlugin.autoImport._
-
 resolvers ++= Seq(
   "Feature.fm" at "http://dl.bintray.com/listnplay/maven"
 )
@@ -36,19 +34,5 @@ lazy val root = (project in file(".")).settings(
     organization := "com.featurefm",
     version := "0.3.2",
     crossScalaVersions := supportedScalaVersions,
-    bintrayOrganization := Some("listnplay"),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-    publishMavenStyle := true,
-    pomAllRepositories := true,
-    pomExtra := <scm>
-                  <url>https://github.com/ListnPlay/Squirrel</url>
-                  <connection>git@github.com:ListnPlay/Squirrel.git</connection>
-                </scm>
-                <developers>
-                  <developer>
-                    <id>ymeymann</id>
-                    <name>Yardena Meymann</name>
-                    <url>https://github.com/ymeymann</url>
-                  </developer>
-                </developers>
-)
+    publishTo := Some("Artifactory Realm" at "https://featurefm.jfrog.io/artifactory/feature-sbt-release"))
